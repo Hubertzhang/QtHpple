@@ -20,12 +20,12 @@ QtXMLElement* ElementForNode(xmlNodePtr currentNode)
 
     if (currentNode->name)
     {
-        tagName = QString((const char *)currentNode->name);
+        tagName = QString::fromUtf8((const char *)currentNode->name);
     }
 
     if (currentNode->content && currentNode->content != (xmlChar *)-1)
     {
-        content = QString((const char *)currentNode->content);
+        content = QString::fromUtf8((const char *)currentNode->content);
     }
 
     xmlAttr *attribute = currentNode->properties;
@@ -34,7 +34,7 @@ QtXMLElement* ElementForNode(xmlNodePtr currentNode)
     {
       xmlChar* value = xmlNodeListGetString(currentNode->doc, attribute->children, 1);
       //do something with value
-      attributeMap[QString((const char*)attribute->name)] = QString((const char*)value);
+      attributeMap[QString((const char*)attribute->name)] = QString::fromUtf8((const char*)value);
 
       xmlFree(value);
       attribute = attribute->next;
@@ -54,7 +54,7 @@ QtXMLElement* ElementForNode(xmlNodePtr currentNode)
     xmlBufferPtr buffer = xmlBufferCreate();
     xmlNodeDump(buffer, currentNode->doc, currentNode, 0, 0);
 
-    QString raw((const char *)buffer->content);
+    QString raw = QString::fromUtf8((const char *)buffer->content);
 
     xmlBufferFree(buffer);
 
@@ -112,7 +112,7 @@ QVector<QtXMLElement *> PerformHTMLXPathQuery(QByteArray *document, QString quer
     xmlDocPtr doc;
 
     /* Load XML document */
-    doc = htmlReadMemory(document->data(), document->length(), "", NULL, HTML_PARSE_NOWARNING | HTML_PARSE_NOERROR);
+    doc = htmlReadMemory(document->data(), document->length(), "", "UTF8", HTML_PARSE_NOWARNING | HTML_PARSE_NOERROR);
 
     if (doc == NULL)
     {
@@ -132,7 +132,7 @@ QVector<QtXMLElement *> PerformXMLXPathQuery(QByteArray *document, QString query
     xmlDocPtr doc;
 
     /* Load XML document */
-    doc = htmlReadMemory(document->data(), document->length(), "", NULL, XML_PARSE_RECOVER);
+    doc = htmlReadMemory(document->data(), document->length(), "", "UTF8", XML_PARSE_RECOVER);
 
     if (doc == NULL)
     {
