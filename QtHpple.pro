@@ -55,3 +55,18 @@ macx {
     DEPENDPATH  += $$XCODE_PATH/usr/lib
     LIBS += -lxml2
 }
+
+win32 {
+    ## Windows common build here
+    !contains(QMAKE_TARGET.arch, x86_64) {
+        message("x86 build")
+        ## Windows x86 (32bit) specific build here
+        INCLUDEPATH += $$PWD/win32/include/libxml2/
+        LIBS += -L$$PWD/win32/lib -lxml2
+    } else {
+        message("x86_64 build")
+        ## Windows x64 (64bit) specific build here
+        INCLUDEPATH += $$PWD/win64/include/libxml2/
+        LIBS += -L$$PWD/win64/lib -lxml2
+    }
+}
