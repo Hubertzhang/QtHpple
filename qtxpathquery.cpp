@@ -112,7 +112,7 @@ QVector<QtXMLElement *> PerformHTMLXPathQuery(QByteArray *document, QString quer
     xmlDocPtr doc;
 
     /* Load XML document */
-    doc = htmlReadMemory(document->data(), document->length(), "", "UTF8", HTML_PARSE_NOWARNING | HTML_PARSE_NOERROR);
+    doc = htmlReadMemory(document->data(), document->length(), "", "", HTML_PARSE_NOWARNING | HTML_PARSE_NOERROR);
 
     if (doc == NULL)
     {
@@ -132,7 +132,7 @@ QVector<QtXMLElement *> PerformXMLXPathQuery(QByteArray *document, QString query
     xmlDocPtr doc;
 
     /* Load XML document */
-    doc = htmlReadMemory(document->data(), document->length(), "", "UTF8", XML_PARSE_RECOVER);
+    doc = htmlReadMemory(document->data(), document->length(), "", "", XML_PARSE_RECOVER);
 
     if (doc == NULL)
     {
