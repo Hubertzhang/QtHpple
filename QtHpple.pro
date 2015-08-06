@@ -20,10 +20,38 @@ HEADERS += qthpple.h\
     qtxmlelement.h \
     qtxpathquery.h
 
-unix {
-    target.path = /usr/lib
-    INSTALLS += target
+linux:!android {
+    CONFIG += link_pkgconfig
+    PKGCONFIG += libxml-2.0
 }
 
-QMAKE_CXXFLAGS += -I/usr/local/Cellar/libxml2/2.9.2/include/libxml2
-QMAKE_LFLAGS += -lxml2
+android {
+    message("* Using settings for Android.")
+    INCLUDEPATH += $$PWD/include/libxml2/
+    LIBS += -L$$PWD/lib -lxml2
+}
+
+ios {
+    iphonesimulator {
+        message("iphonesimulator")
+        DEFINES += iphonesimulator
+        XCODE_PATH = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk
+    }
+
+    iphoneos{
+        message("iphoneos")
+        DEFINES += iphoneos
+        XCODE_PATH = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk
+    }
+
+    INCLUDEPATH += $$XCODE_PATH/usr/include/libxml2/
+    DEPENDPATH  += $$XCODE_PATH/usr/lib
+    LIBS += -lxml2
+}
+
+macx {
+    XCODE_PATH = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk
+    INCLUDEPATH += $$XCODE_PATH/usr/include/libxml2/
+    DEPENDPATH  += $$XCODE_PATH/usr/lib
+    LIBS += -lxml2
+}
