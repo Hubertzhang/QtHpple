@@ -29,6 +29,7 @@ android {
     message("* Using settings for Android.")
     INCLUDEPATH += $$PWD/include/libxml2/
     LIBS += -L$$PWD/lib -lxml2
+    CONFIG += staticlib
 }
 
 ios {
@@ -54,6 +55,7 @@ macx {
     INCLUDEPATH += $$XCODE_PATH/usr/include/libxml2/
     DEPENDPATH  += $$XCODE_PATH/usr/lib
     LIBS += -lxml2
+    CONFIG += staticlib
 }
 
 win32 {
