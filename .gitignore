@@ -5,3 +5,7 @@ GeneratedFiles/
 debug/
 
 release/
+
+*.vcxproj
+
+*.vcxproj.filters
