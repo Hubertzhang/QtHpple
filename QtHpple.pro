@@ -51,10 +51,10 @@ ios {
 }
 
 macx {
-    XCODE_PATH = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk
-    INCLUDEPATH += $$XCODE_PATH/usr/include/libxml2/
-    DEPENDPATH  += $$XCODE_PATH/usr/lib
-    LIBS += -lxml2
+    XCODE_PATH = $$system(xml2-config --prefix)
+    INCLUDEPATH += $$XCODE_PATH/include/libxml2/
+    DEPENDPATH  += $$XCODE_PATH/lib
+    LIBS += $$system(xml2-config --libs)
     CONFIG += staticlib
 }
 
