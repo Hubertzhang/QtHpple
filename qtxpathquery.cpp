@@ -32,11 +32,7 @@ QtXMLElement* ElementForNode(xmlNodePtr currentNode)
     QMap<QString, QString>attributeMap;
     while(attribute && attribute->name && attribute->children)
     {
-      xmlChar* value = xmlNodeListGetString(currentNode->doc, attribute->children, 1);
-      //do something with value
-      attributeMap[QString((const char*)attribute->name)] = QString::fromUtf8((const char*)value);
-
-      xmlFree(value);
+      attributeMap[QString((const char*)attribute->name)] = QString::fromUtf8((const char*)attribute->children->content);
       attribute = attribute->next;
     }
 
